@@ -16,7 +16,7 @@ class RaceTest {
         assertThat(new Race(carCount,roundCount)).isInstanceOf(Race.class);
     }
 
-    @DisplayName("자동차 대수가 1대 이하일때 IllegalArgumentException throw")
+    @DisplayName("자동차 대수가 1대 미만일때 IllegalArgumentException throw")
     @ParameterizedTest
     @CsvSource(value = {"0:5", "-10:10", "-20:15"}, delimiter = ':')
     void testInputNegativeCarsCount(int carCount, int roundCount) {
@@ -25,28 +25,13 @@ class RaceTest {
         }).withMessageMatching("자동차 대수는 1대 이상이어야 합니다.");
     }
 
-    /*
-    @DisplayName("자동차 대수가 1대 이하일때 IllegalArgumentException throw")
+    @DisplayName("라운드가 1경기 미만일때 IllegalArgumentException throw")
     @ParameterizedTest
-    @CsvSource(value = {"0:5", "-10:10", "-20:15"}, delimiter = ':')
-    void testInputNegativeCarsCount() {
+    @CsvSource(value = {"5:0", "10:-10", "15:-20"}, delimiter = ':')
+    void testInputNegativeRoundCount(int carCount, int roundCount) {
         assertThatIllegalArgumentException().isThrownBy(() -> {
-            race = new Race(input);
-        }).withMessageMatching("자동차 대수는 1대 이상이어야 합니다.");
+            new Race(carCount, roundCount);
+        }).withMessageMatching("라운드는 1라운드 이상이어야 합니다.");
     }
 
-    @DisplayName("자동차 대수가 1대 이상일 경우 객체 생성되는지 테스트")
-    @ParameterizedTest
-    @ValueSource(ints = {1, 5, 10})
-    void inputDualNumberTest(int input) {
-        assertThat(new Race(input)).isInstanceOf(Race.class);
-    }
-
-    @DisplayName("입력값과 생성된 리스트의 길이가 같은지 테스트")
-    @ParameterizedTest
-    @ValueSource(ints = {1, 5, 10})
-    void carsLengthTest(int input) {
-        assertThat(new Race(input).getCars().size()).isEqualTo(input);
-    }
-    */
 }
