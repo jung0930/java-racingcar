@@ -5,6 +5,9 @@ import racingCar.domain.strategy.RacingMoveStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 public class Race {
 
@@ -39,13 +42,11 @@ public class Race {
     }
 
     private void lineUp(int carCount) {
-        List<Car> cars = new ArrayList(carCount);
-        int carNumber = ZERO;
-        while (carNumber < carCount){
-            cars.add(new Car());
-            carNumber++;
-        }
-        this.rounds.add(new Round(cars));
+        this.rounds.add(new Round(
+                Stream.generate(Car::new)
+                        .limit(carCount)
+                        .collect(toList())
+        ));
     }
 
     private void startRace(int roundCount) {
