@@ -1,6 +1,6 @@
 package racingCar.domain;
 
-import racingCar.util.RandomNumber;
+import racingCar.domain.strategy.MoveStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,6 @@ import java.util.List;
 public class Race {
 
     private final List<Car> cars;
-    private final int FORWARD_CRITERIA = 4;
     private final int MIN_VALUE_BY_CAR = 1;
     private final static String IS_NOT_DUAL_NUMBER_ERROR_MESSAGE = "자동차 대수는 1대 이상이어야 합니다.";
 
@@ -35,10 +34,10 @@ public class Race {
         return cars;
     }
 
-    public Race moveCar() {
+    public Race moveCar(MoveStrategy moveStrategy) {
         List<Car> movedCars = new ArrayList<>();
         for (Car car : cars) {
-            movedCars.add(car.move(RandomNumber.getRandomNumber() >= FORWARD_CRITERIA));
+            movedCars.add(car.move(moveStrategy.isMoveable()));
         }
         return new Race(movedCars);
     }

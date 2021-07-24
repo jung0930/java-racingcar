@@ -2,6 +2,8 @@ package racingCar;
 
 import racingCar.domain.Car;
 import racingCar.domain.Race;
+import racingCar.domain.strategy.MoveStrategy;
+import racingCar.domain.strategy.RacingMoveStrategy;
 import racingCar.view.InputView;
 import racingCar.view.ResultView;
 
@@ -21,16 +23,17 @@ public class RacingApp {
         int carCount = this.inputView.EnterCarNumber();
         int moveCount = this.inputView.EnterMoveCount();
 
+        MoveStrategy moveStrategy = new RacingMoveStrategy();
         Race race = new Race(carCount);
 
-        start(race, moveCount, carCount);
+        start(race, moveStrategy, carCount, moveCount);
     }
 
-    private void start(Race race, int moveCount, int carCount) {
+    private void start(Race race, MoveStrategy moveStrategy, int moveCount, int carCount) {
         this.resultView.printExecutionResultMessage();
 
         for(int i = 0; i < moveCount; i++) {
-            race = race.moveCar();
+            race = race.moveCar(moveStrategy);
             outputCarDistance(race.getCars(), carCount);
         }
     }
