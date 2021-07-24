@@ -34,4 +34,14 @@ class RaceTest {
         }).withMessageMatching("라운드는 1라운드 이상이어야 합니다.");
     }
 
+    @DisplayName("원하는 라운드의 결과를 가져온다.")
+    @ParameterizedTest
+    @CsvSource(value = {"15:20"}, delimiter = ':')
+    void testGetRound(int carCount, int roundCount) {
+        Race race = new Race(carCount, roundCount);
+        Round round = race.getRoundResult(1);
+        assertThat(round).isInstanceOf(Round.class);
+        assertThat(round.getCars().size()).isEqualTo(carCount);
+    }
+
 }
