@@ -49,7 +49,7 @@ class RoundTest {
     @Test
     void testGetCars() {
         Round round = new Round(cars);
-        assertThat(round.getCars().size()).isEqualTo(cars.size());
+        assertThat(round.getCarsSize()).isEqualTo(cars.size());
     }
 
 }

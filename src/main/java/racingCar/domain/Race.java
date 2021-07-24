@@ -61,4 +61,8 @@ public class Race {
         return rounds.get(roundNumber);
     }
 
+    public int getRoundCount() {
+        return rounds.size();
+    }
+
 }

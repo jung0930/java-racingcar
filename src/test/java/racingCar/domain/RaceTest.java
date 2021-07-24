@@ -41,7 +41,7 @@ class RaceTest {
         Race race = new Race(carCount, roundCount);
         Round round = race.getRoundResult(1);
         assertThat(round).isInstanceOf(Round.class);
-        assertThat(round.getCars().size()).isEqualTo(carCount);
+        assertThat(round.getCarsSize()).isEqualTo(carCount);
     }
 
 }

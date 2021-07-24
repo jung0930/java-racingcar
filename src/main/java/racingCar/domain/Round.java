@@ -34,8 +34,12 @@ public class Round {
         return new Round(movedCars);
     }
 
-    public List<Car> getCars() {
-        return this.cars;
+    public int getCarsSize() {
+        return this.cars.size();
+    }
+
+    public Car getCar(int carNumber) {
+        return this.cars.get(carNumber);
     }
 
 }
