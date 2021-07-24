@@ -1,0 +1,49 @@
+package racingCar.domain;
+
+import racingCar.domain.strategy.MoveStrategy;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Race {
+
+    private final List<Car> cars;
+    private final int MIN_VALUE_BY_CAR = 1;
+    private final static String IS_NOT_DUAL_NUMBER_ERROR_MESSAGE = "자동차 대수는 1대 이상이어야 합니다.";
+
+    public Race(int count) {
+        validateInput(count);
+        this.cars = addCar(count);
+    }
+
+    public Race(List<Car> cars) {
+        this.cars = cars;
+    }
+
+    private void validateInput(int count) {
+        if(count < MIN_VALUE_BY_CAR) {
+            throw new IllegalArgumentException(IS_NOT_DUAL_NUMBER_ERROR_MESSAGE);
+        }
+    }
+
+    private List<Car> addCar(int count) {
+        List<Car> cars = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            cars.add(new Car());
+        }
+        return cars;
+    }
+
+    public Race moveCar(MoveStrategy moveStrategy) {
+        List<Car> movedCars = new ArrayList<>();
+        for (Car car : cars) {
+            movedCars.add(car.move(moveStrategy.isMoveable()));
+        }
+        return new Race(movedCars);
+    }
+
+    public List<Car> getCars() {
+        return cars;
+    }
+
+}
