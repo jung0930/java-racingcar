@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class RaceTest {
 
@@ -15,7 +16,14 @@ class RaceTest {
         assertThat(new Race(carCount,roundCount)).isInstanceOf(Race.class);
     }
 
-
+    @DisplayName("자동차 대수가 1대 이하일때 IllegalArgumentException throw")
+    @ParameterizedTest
+    @CsvSource(value = {"0:5", "-10:10", "-20:15"}, delimiter = ':')
+    void testInputNegativeCarsCount(int carCount, int roundCount) {
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            new Race(carCount, roundCount);
+        }).withMessageMatching("자동차 대수는 1대 이상이어야 합니다.");
+    }
 
     /*
     @DisplayName("자동차 대수가 1대 이하일때 IllegalArgumentException throw")

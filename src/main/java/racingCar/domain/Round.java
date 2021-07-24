@@ -12,11 +12,11 @@ public class Round {
     private final static String IS_NOT_DUAL_NUMBER_ERROR_MESSAGE = "자동차 대수는 1대 이상이어야 합니다.";
 
     public Round(List<Car> cars) {
-        validateInput(cars);
+        validateCarsSize(cars);
         this.cars = cars;
     }
 
-    private void validateInput(List<Car> cars) {
+    private void validateCarsSize(List<Car> cars) {
         if(isCarsSizeOverZero(cars)) {
             throw new IllegalArgumentException(IS_NOT_DUAL_NUMBER_ERROR_MESSAGE);
         }
