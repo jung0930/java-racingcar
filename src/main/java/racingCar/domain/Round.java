@@ -1,5 +1,8 @@
 package racingCar.domain;
 
+import racingCar.domain.strategy.MoveStrategy;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Round {
@@ -21,6 +24,14 @@ public class Round {
 
     private boolean isCarsSizeOverZero(List<Car> cars) {
         return cars.size() < MIN_VALUE_BY_CAR;
+    }
+
+    public Round startRound(MoveStrategy moveStrategy) {
+        List<Car> movedCars = new ArrayList<>();
+        for (Car car : cars) {
+            movedCars.add(car.move(moveStrategy.isMoveable()));
+        }
+        return new Round(movedCars);
     }
 
 }
