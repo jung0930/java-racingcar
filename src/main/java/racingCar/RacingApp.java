@@ -1,13 +1,9 @@
 package racingCar;
 
-import racingCar.domain.Car;
 import racingCar.domain.Race;
-import racingCar.domain.strategy.MoveStrategy;
-import racingCar.domain.strategy.RacingMoveStrategy;
+import racingCar.domain.Round;
 import racingCar.view.InputView;
 import racingCar.view.ResultView;
-
-import java.util.List;
 
 public class RacingApp {
 
@@ -23,24 +19,25 @@ public class RacingApp {
         int carCount = this.inputView.EnterCarNumber();
         int moveCount = this.inputView.EnterMoveCount();
 
-        MoveStrategy moveStrategy = new RacingMoveStrategy();
-        Race race = new Race(carCount);
+        Race race = new Race(carCount, moveCount);
 
-        start(race, moveStrategy, carCount, moveCount);
+        start(race);
     }
 
-    private void start(Race race, MoveStrategy moveStrategy, int moveCount, int carCount) {
+    private void start(Race race) {
         this.resultView.printExecutionResultMessage();
+        int roundCount = race.getRoundCount();
 
-        for(int i = 0; i < moveCount; i++) {
-            race = race.moveCar(moveStrategy);
-            outputCarDistance(race.getCars(), carCount);
+        for(int i = 1; i < roundCount; i++) {
+            outputCarDistance(race.getRoundResult(i));
         }
     }
 
-    private void outputCarDistance(List<Car> cars, int carCount) {
+    private void outputCarDistance(Round round) {
+        int carCount = round.getCarsSize();
+
         for(int i = 0; i < carCount; i++) {
-            this.resultView.printCarDistance(cars.get(i).getCarDistance());
+            this.resultView.printCarDistance(round.getCar(i).getCarDistance());
         }
         this.resultView.printEnter();
     }
