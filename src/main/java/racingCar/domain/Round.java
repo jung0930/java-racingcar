@@ -28,10 +28,14 @@ public class Round {
 
     public Round startRound(MoveStrategy moveStrategy) {
         List<Car> movedCars = new ArrayList<>();
-        for (Car car : cars) {
+        for (Car car : this.cars) {
             movedCars.add(car.move(moveStrategy.isMoveable()));
         }
         return new Round(movedCars);
+    }
+
+    public List<Car> getCars() {
+        return this.cars;
     }
 
 }

@@ -3,6 +3,8 @@ package racingCar.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import racingCar.domain.strategy.MoveStrategy;
 import racingCar.domain.strategy.RacingMoveStrategy;
 
@@ -48,6 +50,18 @@ class RoundTest {
         cars.add(new Car());
 
         assertThat(new Round(cars).startRound(moveStrategy)).isInstanceOf(Round.class);
+    }
+
+    @DisplayName("주입한 리스트의 길이와 Round의 자동차 리스트 길이가 같은지 확인.")
+    @Test
+    void testGetCars() {
+        cars.add(new Car());
+        cars.add(new Car());
+        cars.add(new Car());
+        Round round = new Round(cars);
+
+        assertThat(round.getCars().size()).isEqualTo(cars.size());
+
     }
 
 
