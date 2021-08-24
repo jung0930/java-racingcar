@@ -9,7 +9,7 @@ class RacingMoveStrategyTest {
 
     @DisplayName("이동전략 객체 생성")
     @Test
-    void createMoveStrategy(){
+    void createMoveStrategy() {
         MoveStrategy moveStrategy = new RacingMoveStrategy();
         assertThat(moveStrategy).isInstanceOf(RacingMoveStrategy.class);
     }

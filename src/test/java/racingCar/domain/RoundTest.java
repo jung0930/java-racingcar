@@ -58,7 +58,7 @@ class RoundTest {
         Round round = new Round(cars);
         assertThat(round.getFirstCar().size() > 0).isTrue();
     }
-    
+
     @DisplayName("우승자 리스트를 제대로 반환하는지 확인")
     @Test
     void testAddWinner() {

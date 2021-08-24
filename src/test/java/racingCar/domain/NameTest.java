@@ -42,7 +42,7 @@ class NameTest {
             new Name(input);
         }).withMessageMatching("자동차의 이름은 1~5글자 사이로 입력해야 합니다.");
     }
-    
+
     @DisplayName("입력한 이름을 반환하는지 확인")
     @ParameterizedTest
     @ValueSource(strings = {"원숭이", "코끼리", "푸마", "불독"})

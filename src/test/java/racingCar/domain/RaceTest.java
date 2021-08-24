@@ -14,7 +14,7 @@ class RaceTest {
     @ParameterizedTest
     @CsvSource(value = {"\"강아지,고양이,원숭이\":1", "\"강아지,고양이,원숭이,코끼리,호랑이\":3", "\"강아지,고양이\":2"}, delimiter = ':')
     void testInput(String names, int roundCount) {
-        assertThat(new Race(names,roundCount)).isInstanceOf(Race.class);
+        assertThat(new Race(names, roundCount)).isInstanceOf(Race.class);
     }
 
     @DisplayName("라운드가 1경기 미만일때 IllegalArgumentException throw")
