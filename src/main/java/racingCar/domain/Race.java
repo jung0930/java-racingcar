@@ -4,6 +4,7 @@ import racingCar.domain.strategy.MoveStrategy;
 import racingCar.domain.strategy.RacingMoveStrategy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Race {
@@ -43,18 +44,18 @@ public class Race {
         List<Car> cars = new ArrayList<>();
         String[] names = nameList.split(COMMA);
 
-        for (String name : names) {
-            cars.add(new Car(new Name(name)));
-        }
+        Arrays.stream(names)
+                .forEach(name -> cars.add(new Car(new Name(name))));
 
-        this.rounds.add(new Round(cars));
+        rounds.add(new Round(cars));
     }
 
     private void startRace(int roundCount) {
         int roundNumber = ZERO;
+
         while (roundNumber < roundCount) {
             Round round = rounds.get(roundNumber).startRound(moveStrategy);
-            this.rounds.add(round);
+            rounds.add(round);
             roundNumber++;
         }
     }
@@ -69,7 +70,7 @@ public class Race {
     }
 
     public List<Round> getRounds() {
-        return this.rounds;
+        return rounds;
     }
 
 }

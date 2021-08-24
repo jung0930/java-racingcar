@@ -1,8 +1,9 @@
 package calculator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class StringCalculator {
 
@@ -21,10 +22,10 @@ public class StringCalculator {
     }
 
     private void validateInput(String input) {
-        if(isEmpty(input)) {
+        if (isEmpty(input)) {
             throw new IllegalArgumentException(IS_NULL_ERROR_MESSAGE);
         }
-        if(isNotOperator(input)) {
+        if (isNotOperator(input)) {
             throw new IllegalArgumentException(IS_NOT_OPERATOR_ERROR_MESSAGE);
         }
     }
@@ -35,47 +36,35 @@ public class StringCalculator {
 
     private boolean isNotOperator(String input) {
         String[] inputs = input.split(SPACEBAR);
-        for (String s : inputs) {
-            if (!s.matches(IS_NUMBER_REGEX) && !s.matches(IS_OPERATOR_REGEX)) {
-                return true;
-            }
-        }
-        return false;
+
+        return Arrays.stream(inputs)
+                .anyMatch(s -> !s.matches(IS_NUMBER_REGEX) && !s.matches(IS_OPERATOR_REGEX));
     }
 
     private List<Integer> parsingNumber(String[] inputs) {
         List<Integer> numbers = new ArrayList<>();
-        for (String input : inputs) {
-            isNumber(input, numbers);
-        }
-        return numbers;
-    }
 
-    private void isNumber(String input, List<Integer> numbers) {
-        if(input.matches(IS_NUMBER_REGEX)) {
-            numbers.add(Integer.parseInt(input));
-        }
+        return Arrays.stream(inputs)
+                .filter(input -> input.matches(IS_OPERATOR_REGEX))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 
     private List<String> parsingOperation(String[] inputs) {
         List<String> operations = new ArrayList<>();
-        for (String input : inputs) {
-            addByIsOperation(input, operations);
-        }
-        return operations;
-    }
 
-    private void addByIsOperation(String input, List<String> operations) {
-        if(input.matches(IS_OPERATOR_REGEX)) {
-            operations.add(input);
-        }
+        return Arrays.stream(inputs)
+                .filter(input -> input.matches(IS_OPERATOR_REGEX))
+                .collect(Collectors.toList());
     }
 
     private int input(List<Integer> numbers, List<String> operations) {
         int result = numbers.get(0);
-        for(int i = 0; i < operations.size(); i++) {
-            result = calculate(result, numbers.get(i+1), operations.get(i));
+
+        for (int i = 0; i < operations.size(); i++) {
+            result = calculate(result, numbers.get(i + 1), operations.get(i));
         }
+
         return result;
     }
 

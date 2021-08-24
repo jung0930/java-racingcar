@@ -29,9 +29,9 @@ public class Round {
 
     public Round startRound(MoveStrategy moveStrategy) {
         List<Car> movedCars = new ArrayList<>();
-        for (Car car : this.cars) {
-            movedCars.add(car.move(moveStrategy.isMoveable()));
-        }
+
+        cars.forEach(car -> movedCars.add(car.move(moveStrategy.isMoveable())));
+
         return new Round(movedCars);
     }
 
@@ -42,9 +42,9 @@ public class Round {
     public List<String> getFirstCar() {
         List<String> winners = new ArrayList<>();
         int maxDistance = getMaxDistance();
-        for (Car car : cars) {
-            addWinner(winners, maxDistance, car);
-        }
+
+        cars.forEach(car -> addWinner(winners, maxDistance, car));
+
         return winners;
     }
 
